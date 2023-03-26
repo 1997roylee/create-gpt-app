@@ -4,7 +4,8 @@
     "**/.env.*local"
   ],
   "globalEnv": [
-    "npm_lifecycle_event"
+    "npm_lifecycle_event",
+    "VERCEL_URL"
   ],
   "pipeline": {
     "build": {
