@@ -7,7 +7,7 @@ export interface Dependencies {
 
 const SPACE = 4;
 
-export function addDependencies(projectPath: string = __dirname, dependencies: Dependencies, isDev: boolean = false) {
+export function addDependencies(projectPath: string = "", dependencies: Dependencies, isDev: boolean = false) {
     const packageJsonPath = path.resolve(projectPath, '..', 'package.json');
     const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, 'utf-8'));
 
@@ -21,6 +21,8 @@ export function addDependencies(projectPath: string = __dirname, dependencies: D
             ...packageJson.dependencies,
             ...dependencies,
         };
+
+    console.log(packageJson)
 
     fs.writeFileSync(packageJsonPath, JSON.stringify(packageJson, null, SPACE));
 }

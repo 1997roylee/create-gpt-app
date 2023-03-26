@@ -2,13 +2,13 @@ import chalk from "chalk";
 import { Command } from "commander";
 import { execa } from "execa";
 import ora from "ora";
+import path from "path";
+import { installerMap } from "../installers";
 import { cloneGitRepo } from "../utils/git";
 import { createPrompts } from "./prompts";
 
 const commander = new Command();
-
 const GIT_REPO = "https://github.com/1997roylee/create-t3-turbo.git";
-
 
 const setupCommander = (): Command => {
   return commander
@@ -19,7 +19,6 @@ const setupCommander = (): Command => {
     )
     .parse(process.argv);
 }
-
 
 export async function runCli(): Promise<void> {
   const command = setupCommander();
@@ -33,8 +32,19 @@ export async function runCli(): Promise<void> {
     text: "Creating Next.js app...",
     color: "green",
   }).start();
-  await cloneGitRepo(GIT_REPO, appDir);
-  await execa(`npx rimraf ./bin`);
+
+  await execa('npx', ['create-next-app', appDir, '--ts']);
+  const projectDir = path.resolve(process.cwd(), appDir);
+  // await execa(`mkdir`, [appDir]);
+  // await execa('npm', ['init', '-y'], {
+  //   cwd: `./${appDir}`,
+  // });
+
+  Object.values(installerMap).forEach(async (installer) => {
+    await installer.install(projectDir);
+  });
+  // await cloneGitRepo(GIT_REPO, appDir);
+  // await execa(`npx rimraf ./bin`);
   spinner.succeed("Next.js app created!");
 
   // If using Next.js, create a new app with create-next-app
