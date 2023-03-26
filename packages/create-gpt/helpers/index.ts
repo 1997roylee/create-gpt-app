@@ -4,11 +4,9 @@ import { execa } from "execa";
 import ora from "ora";
 import path from "path";
 import { installerMap } from "../installers";
-import { cloneGitRepo } from "../utils/git";
 import { createPrompts } from "./prompts";
 
 const commander = new Command();
-const GIT_REPO = "https://github.com/1997roylee/create-t3-turbo.git";
 
 const setupCommander = (): Command => {
   return commander
