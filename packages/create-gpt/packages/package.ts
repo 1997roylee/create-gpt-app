@@ -1,13 +1,13 @@
 import { addDependencies, Dependencies } from './addPackageDependency';
 
-interface InstallerConfig {
+interface PackageConfig {
     projectName: string;
     dependencies?: Dependencies;
     devDependencies?: Dependencies;
     script?: string;
 }
 
-export class Installer {
+export class Package {
     public projectName: string;
     public dependencies?: Dependencies;
     public devDependencies?: Dependencies;
@@ -22,19 +22,18 @@ export class Installer {
     }
 
     public install(projectPath?: string) {
-        console.log(this.dependencies, this.devDependencies)
         if (this.dependencies)
             addDependencies(projectPath, this.dependencies, false);
         if (this.devDependencies)
             addDependencies(projectPath, this.devDependencies, true);
     }
 
-    static createInstaller({
+    static create({
         projectName,
         dependencies,
         devDependencies,
         script
-    }: InstallerConfig) {
-        return new Installer(projectName, dependencies, devDependencies, script);
+    }: PackageConfig) {
+        return new Package(projectName, dependencies, devDependencies, script);
     }
 }

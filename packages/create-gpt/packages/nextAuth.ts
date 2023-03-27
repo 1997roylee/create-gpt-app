@@ -1,6 +1,6 @@
-import { Installer } from "../utils";
+import { Package } from "./package";
 
-export default Installer.createInstaller({
+export default Package.create({
     projectName: "NextAuth",
     dependencies: {
         "next-auth": "^4.20.1"
