@@ -5,6 +5,7 @@
   ],
   "globalEnv": [
     "npm_lifecycle_event",
+    "npm_config_user_agent",
     "VERCEL_URL"
   ],
   "pipeline": {

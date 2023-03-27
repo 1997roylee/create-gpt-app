@@ -1,9 +1,9 @@
 import chalk from "chalk";
 import { Command } from "commander";
-import { execa } from "execa";
 import ora from "ora";
 import path from "path";
-import { installerMap } from "../installers";
+import { createNextApp } from './createNextApp'
+import { install } from "./install";
 import { createPrompts } from "./prompts";
 
 const commander = new Command();
@@ -31,16 +31,11 @@ export async function runCli(): Promise<void> {
     color: "green",
   }).start();
 
-  await execa('npx', ['create-next-app', appDir, '--ts']);
-  const projectDir = path.resolve(process.cwd(), appDir);
-  // await execa(`mkdir`, [appDir]);
-  // await execa('npm', ['init', '-y'], {
-  //   cwd: `./${appDir}`,
-  // });
+  await createNextApp("/Users/roy/Desktop/SourceCode/demo")
+  // const projectDir = path.resolve(process.cwd(), appDir);
 
-  Object.values(installerMap).forEach(async (installer) => {
-    await installer.install(projectDir);
-  });
+  await install("/Users/roy/Desktop/SourceCode/demo");
+
   // await cloneGitRepo(GIT_REPO, appDir);
   // await execa(`npx rimraf ./bin`);
   spinner.succeed("Next.js app created!");
